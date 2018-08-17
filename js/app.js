@@ -92,6 +92,8 @@ google.setOnLoadCallback(init);
  * place our code in the $() function to ensure it doesn't execute
  * until the DOM is ready.
  */
+
+let currentVisibility = false;
 $(function() {
     var container = $('.feed'),
         feedList = $('.feed-list'),
@@ -127,7 +129,10 @@ $(function() {
     /* When the menu icon is clicked on, we need to toggle a class
      * on the body to perform the hiding/showing of our menu.
      */
+
+    
     menuIcon.on('click', function() {
         $('body').toggleClass('menu-hidden');
+        currentVisibility = currentVisibility ? false : true;
     });
 }());

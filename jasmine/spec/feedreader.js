@@ -32,11 +32,28 @@ $(function() {
          * and that the URL is not empty.
          */
 
+        // COMPLETE
+        it("has URL", function(){
+            allFeeds.forEach(function(e){
+                expect(e.url).toBeDefined();
+                expect(e.url.length).not.toBe(0);
+            });
+        });
+
 
         /* TODO: Write a test that loops through each feed
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
+
+        // COMPLETE
+        it("has Name", function(){
+            allFeeds.forEach(function(e){
+                expect(e.name).toBeDefined();
+                expect(e.name.length).not.toBe(0);
+            });
+        });
+
     });
 
 
@@ -54,6 +71,20 @@ $(function() {
           * clicked and does it hide when clicked again.
           */
 
+    // COMPLETE
+    describe("The menu", function(){
+        it("Hidden by default", function(){
+            expect($("body").hasClass("menu-hidden")).toBe(true);
+        });
+
+        it("Toggles visibility", function(){
+           $('.menu-icon-link').trigger("click");
+           expect($("body").hasClass("menu-hidden")).toBe(false);
+           $('.menu-icon-link').trigger("click");
+           expect($("body").hasClass("menu-hidden")).toBe(true);
+        });
+    });
+
     /* TODO: Write a new test suite named "Initial Entries" */
 
         /* TODO: Write a test that ensures when the loadFeed
@@ -62,6 +93,19 @@ $(function() {
          * Remember, loadFeed() is asynchronous so this test will require
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
+    // COMPLETE
+    describe("Initial Entries", function(){
+        beforeEach(function(done){
+            loadFeed(0, function(){
+                done();
+            });
+        });
+
+        it("Had entries", function(done){
+            expect($(".feed").find(".entry").length).not.toBe(0);
+            done();
+        });
+    });
 
     /* TODO: Write a new test suite named "New Feed Selection" */
 
@@ -69,4 +113,20 @@ $(function() {
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
+    
+    describe("New Feed Selection", function(){
+        let before;
+        beforeEach(function(done){
+            before = $(".feed").html();
+            loadFeed(1, function(){
+                done();
+            });
+        });
+
+        it("Changes after select", function(done){
+            expect($(".feed").html()).not.toBe(before);
+            done();
+            loadFeed(0); // Just to return the page to the start position.
+        });
+    }); 
 }());
