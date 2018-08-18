@@ -38,9 +38,7 @@ $(function() {
 
     describe("Initial Entries", function(){
         beforeEach(function(done){
-            loadFeed(0, function(){
-                done();
-            });
+            loadFeed(0, done);
         });
 
         it("Had entries", function(done){
@@ -52,8 +50,8 @@ $(function() {
     describe("New Feed Selection", function(){
         let before;
         beforeEach(function(done){
-            before = $(".feed").html();
             loadFeed(0, function(){
+                before = $(".feed").html();
                 loadFeed(1, done);
             });
         });
